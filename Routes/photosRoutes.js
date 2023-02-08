@@ -3,8 +3,8 @@ const photoController = require("../controller/PhotoControllers.js");
 
 const router = express.Router();
 
-router.get("/showcase", photoController.getAllPhotos);
+router.get("/", photoController.getAllPhotos);
 
-router.get("/showcase/:id", photoController.getPhoto);
+router.get("/:id", photoController.getPhoto);
 
 module.exports = router; 
