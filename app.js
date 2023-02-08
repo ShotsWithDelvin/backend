@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const userRouter = require("./Routes/userRoutes.js");
 const photosRouter = require("./Routes/photosRoutes.js");
+const likesRouter = require("./Routes/likesRoutes")
 
 const commentsRouter = require("./Routes/commentsRoutes");
 const cookieParser = require("cookie-parser");
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use("/users", userRouter);
+app.use("/likes", likesRouter);
 app.use("/photos", photosRouter)
 app.use("/comments", commentsRouter);
 

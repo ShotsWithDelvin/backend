@@ -5,8 +5,8 @@ const authenticate = require("../auth");
 
 const router = express.Router();
 
-router.get("/:id", likeControllers.getAllLikes);
+router.get("/", likeControllers.getAllLikes);
 
-router.post("/likes", likeControllers.getLikes);
+router.post("/:id", likeControllers.getLikes);
 
 module.exports = router;
