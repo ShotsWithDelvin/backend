@@ -36,24 +36,6 @@ class User {
     return photographyResults.rows[0];
   }
 
-  static async updateUser({
-    id,
-    name,
-  }) {
-    const photographyQuery1 =
-      "UPDATE users SET name = $1, WHERE id = $2 RETURNING*";
-    const photographyQuery2 =
-      "UPDATE photos SET commentary = $1, photos_id = $2 WHERE users_id = $3 RETURNING*";
-    await pool
-      .query(photographyQuery1, [name, id])
-      .then((results) => results.rows[0]);
-    return await pool.query(photographyQuery2, [
-      commentary,
-      photo_id,
-      id,
-    ]);
-  }
-
   static async deleteUser(id) {
     const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
       id,
