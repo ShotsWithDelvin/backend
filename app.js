@@ -4,9 +4,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const userRouter = require("./Routes/userRoutes.js");
 const photosRouter = require("./Routes/photosRoutes.js");
-const likesRouter = require("./Routes/likesRoutes")
+const likesRouter = require("./Routes/likesRoutes.js")
+const commentsRouter = require("./Routes/commentsRoutes.js");
 
-const commentsRouter = require("./Routes/commentsRoutes");
 const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT || 3001;

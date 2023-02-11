@@ -46,9 +46,9 @@ const userSignUp = async (req, res) => {
       email,
       password: hashedPassword,
     };
-    console.log(req.body);
+    console.log(newUserInfo);
     await Users.createUser(newUserInfo);
-    const token = jwt.sign({ email: email }, process.env.AUTH_KEY);
+    const token = await jwt.sign({ username: username }, process.env.REACT_APP_AUTH_KEY);
     res.cookie("token", token).sendStatus(200);
   } catch (err) {
     res.status(500).send(err);
@@ -57,24 +57,18 @@ const userSignUp = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await Users.getByEmail(email);
-
-    if (!user) {
-      return res.status(401).send("User Does Not Exist.");
-    }
-
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    console.log(user.email);
-
+    let {username, password} = req.body
+    const foundUser = await Users.loginUser(username)
+    console.log(foundUser)
+    const isValidPassword = await bcrypt.compare(password, foundUser.password);
+  
     if (isValidPassword) {
-      const token = jwt.sign({ email: user.email }, process.env.AUTH_KEY);
-      res.cookie("token", token).status(200).send(JSON.stringify(user));
+      const token = jwt.sign({ username: foundUser.username }, process.env.REACT_APP_AUTH_KEY);
+      res.cookie("token", token).status(200).send(JSON.stringify(foundUser));
     }
-  } catch (err) {
-    res.status(500).send("An error has occured");
-    console.log(err);
-  }
+  } catch (e) {
+    res.status(401).send("invalid username or password")
+  }   
 };
 
 const logout = (req, res) => {

@@ -7,7 +7,7 @@ const getAllPhotos = async (req, res) => {
 
 
 const getPhoto = async (req, res) => {
-  const photo = await Photo.singlePhoto(req.body.id);
+  const photo = await Photo.singlePhoto(req.params.id);
   res.status(200).send(photo); 
 };
 

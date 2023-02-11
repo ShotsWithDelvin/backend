@@ -5,13 +5,12 @@ const authenticate = require("../auth");
 
 
 router.get("/", userController.allUsers);
-router.post("/login", userController.login);
 router.get("/logout", userController.logout);
+router.get("/:id", authenticate, userController.getUserById);
 
-router.get("/getById", authenticate, userController.getUserById);
-router.post("/signup", authenticate, userController.userSignUp);
-router.delete("/:id", authenticate, userController.userDelete);
-router.put("/", authenticate, userController.userUpdate);
+// router.get("/getUser", authenticate, userController.getUserByUsername);
+router.post("/signup", userController.userSignUp);
+router.post("/login", userController.login);
 
 router.all("*", (req, res) => {
   res.send("This user route does not exist");

@@ -8,40 +8,44 @@ class User {
   }
 
   static async singleUser(id) {
-    const database = "SELECT * FROM users WHERE id = $1";
-    const photographydb = "SELECT * FROM photos WHERE user_id = $1";
-    const photographydb2 = await pool.query(photographydb, [id]);
-    const photographyResults = await pool.query(database, [id]);
-    return { ...photographydb2.rows[0], ...photographyResults.rows[0] };
+    const query = await pool.query("SELECT id, username, email FROM users WHERE id = $1", [id])
+    return query.rows[0]
   }
 
-  static async getByEmail(email) {
-    const database = "SELECT * FROM users WHERE email = $1";
-    const photographyResults = await pool.query(database, [email]);
-    return photographyResults.rows[0];
+  static async loginUser(username) {
+    let query = await pool.query(
+      "SELECT * FROM users WHERE username = $1;", 
+      [username]
+    )
+    return query.rows[0]
+    // const database = "SELECT * FROM users WHERE username = $1";
+    // const photographyResults = await pool.query(database, [username]);
+    // return photographyResults.rows[0];
   }
 
-  static async createUser(info) {
-    const query =
-      "INSERT INTO users (name, username, email, password) VALUES ($1, $2, $3, $4) RETURNING*";
-    const photographyResults = await pool.query(query, [
-      info.name,
-      info.username,
-      info.email,
-      info.password,
-    ]);
+  static async createUser({name, username, email, password}) {
+    let query = await pool.query(
+      "INSERT INTO users (name, username, email, password) VALUES ($1, $2, $3, $4);", 
+      [name, username, email, password]
+    )
+  
     console.log("hi there")
-    console.log(info)
 
-    return photographyResults.rows[0];
+    return query.rows[0];
   }
 
-  static async deleteUser(id) {
-    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
-      id,
-    ]);
-    return deleteUser.rows[0];
-  }
+  static async getUserByUsername(username){
+    let query = await pool.query("SELECT * FROM users WHERE username = $1;", [username])
+    return query.rows[0]
+
+  } 
+
+  // static async deleteUser(id) {
+  //   const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
+  //     id,
+  //   ]);
+  //   return deleteUser.rows[0];
+  // }
 }
 
 module.exports = User;
