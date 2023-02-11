@@ -8,9 +8,9 @@ const authenticate = async (req, res, next) => {
       return res.status(401).send("Token not found, please login.");
     }
   
-    const { email } = await jwt.verify(
+    const { username } = await jwt.verify(
       token,
-      process.env.AUTH_KEY,
+      process.env.REACT_APP_AUTH_KEY,
       (err, decoded) => {
         if (err) {
           throw Error("Failed to authenticate token");
@@ -19,7 +19,7 @@ const authenticate = async (req, res, next) => {
       }
     );
   
-    const user = await Users.getByEmail(email);
+    const user = await Users.getUserByUsername(username);
   
     if (!user) {
       return res.status(404).send("No user found.");
