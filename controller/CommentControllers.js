@@ -18,15 +18,23 @@ const addComment = async (req, res) => {
     commentary
   });
 
-  if (comments) {
-    res.status(200).send(comments);
-    
+  const fullComment = await Comments.getSingleComment(comments.id, users_id);
+
+  if (fullComment) {
+    res.status(200).send(fullComment);
   } else {
     res.status(404).send("comment not found");
   }
 };
 
+const deleteComment = async (req, res) => {
+  const comment = await Comments.deleteComment(req.body.id);
+  const allComments = await Comments.getAllComments(req.body.photos_id)
+  res.status(200).send(allComments);
+}
+
 module.exports = {
   allComments,
   addComment,
+  deleteComment,
 };
