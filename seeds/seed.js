@@ -13,7 +13,7 @@ exports.seed = async function(knex) {
   ]);
 
   await knex('photos').insert([
-    { url: ''}
+    { name: 'Tessa', url: 'tessa.JPG'}, { name:'Shoniah', url:'shoniah.JPG'}, { name:'Sirrea', url:'sirrea.JPG'}, { name:'Sirrea', url:'sirrea2.JPG'}, { name:'Karen', url:'karen.JPG'}, { name:'Cassidy', url:'cassidy.JPG'}, { name:'Rachely', url:'rachely.JPG'}, { name:'Zianna', url:'zianna.JPG'}, { name:'Zianna', url:'zianna2.JPG'}, { name:'Cesar', url:'cesar.JPG'}, { name:'Nacier', url:'nacier.JPG'}, { name:'Devonte', url:'devonte.JPG'}, { name:'Jorden', url:'jorden.JPG'}, { name:'Jordan', url:'jordan.JPG'}
   ]);
 
   await knex('comments').insert([

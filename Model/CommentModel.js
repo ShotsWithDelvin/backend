@@ -1,9 +1,9 @@
 const { pool } = require("../db.js");
 
 class Comments {
-  static async getAllComments() {
-    const database = "SELECT * FROM comments WHERE photos_id = $1 ";
-    const PhotographyResults = await pool.query(database);
+  static async getAllComments(id) {
+    const database = "SELECT * FROM comments WHERE photos_id=$1";
+    const PhotographyResults = await pool.query(database, [id]);
     return PhotographyResults.rows;
   }
 

@@ -2,7 +2,7 @@ const { pool } = require("../db.js");
 
 class Photos {
   static async totalPhotos() {
-    const database = 'SELECT * FROM photos ORDER BY photos_id DESC;'
+    const database = 'SELECT * FROM photos ORDER BY id;'
     
     const databaseResults = await pool.query(database);
     return databaseResults.rows; 
@@ -17,10 +17,10 @@ class Photos {
   }
   static async createPhotos(info) {
     const query =
-      "INSERT INTO photos (photos_id, url) VALUES ($1, $2) RETURNING *;";
+      "INSERT INTO photos (id, url) VALUES ($1, $2) RETURNING *;";
     const photographyResults = await pool.query(query, [
-      info.photos_id,
-      info.url,
+      info.id,
+      info.url
     ]); 
     return photographyResults.rows
     
