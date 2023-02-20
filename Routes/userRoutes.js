@@ -6,7 +6,7 @@ const authenticate = require("../auth");
 
 router.get("/", userController.allUsers);
 router.get("/logout", userController.logout);
-router.get("/:id", authenticate, userController.getUserById);
+router.get("/:id", userController.getUserById);
 
 // router.get("/getUser", authenticate, userController.getUserByUsername);
 router.post("/signup", userController.userSignUp);

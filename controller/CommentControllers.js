@@ -9,16 +9,18 @@ const addComment = async (req, res) => {
   const {
     commentary,
     photos_id,
-    users_id
-    
   } = req.body;
-  const comments = await Comments.addComment({
+  const users_id = req.id
+  const comment = await Comments.addComment({
     photos_id,
     users_id,
     commentary
   });
 
-  const fullComment = await Comments.getSingleComment(comments.id, users_id);
+  console.log(comment)
+
+  const fullComment = await Comments.getSingleComment(comment.id);
+  console.log(fullComment)
 
   if (fullComment) {
     res.status(200).send(fullComment);
@@ -28,9 +30,15 @@ const addComment = async (req, res) => {
 };
 
 const deleteComment = async (req, res) => {
-  const comment = await Comments.deleteComment(req.body.id);
-  const allComments = await Comments.getAllComments(req.body.photos_id)
-  res.status(200).send(allComments);
+  const { id } = req
+  const comment = await Comments.getSingleComment(req.body.id);
+  if(id !== comment.users_id) {
+    res.status(403).send('fuck off')
+  } else {
+    const deletedComment = await Comments.deleteComment(req.body.id);
+    const allComments = await Comments.getAllComments(req.body.photos_id)
+    res.status(200).send(allComments);
+  }
 }
 
 module.exports = {
