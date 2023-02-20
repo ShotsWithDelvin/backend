@@ -1,4 +1,5 @@
 const { pool } = require("../db.js");
+const { use } = require("../Routes/userRoutes.js");
 
 class User {
   static async totalUsers() {
@@ -13,6 +14,7 @@ class User {
   }
 
   static async loginUser(username) {
+    console.log(username)
     let query = await pool.query(
       "SELECT * FROM users WHERE username = $1;", 
       [username]
@@ -25,12 +27,9 @@ class User {
 
   static async createUser({name, username, email, password}) {
     let query = await pool.query(
-      "INSERT INTO users (name, username, email, password) VALUES ($1, $2, $3, $4);", 
+      "INSERT INTO users (name, username, email, password) VALUES ($1, $2, $3, $4) RETURNING *;", 
       [name, username, email, password]
     )
-  
-    console.log("hi there")
-
     return query.rows[0];
   }
 

@@ -2,14 +2,14 @@ const { pool } = require("../db.js");
 
 class Comments {
   static async getAllComments(id) {
-    const database = 'SELECT comments.id, commentary, photos_id, users_id, "name", username, email FROM comments JOIN users ON "comments".users_id = users.id WHERE photos_id = $1;';
+    const database = 'SELECT comments.id, commentary, photos_id, users_id, name, username, email FROM comments JOIN users ON "comments".users_id = users.id WHERE photos_id = $1;';
     const PhotographyResults = await pool.query(database, [id]);
     return PhotographyResults.rows;
   }
 
-  static async getSingleComment(id, users_id) {
-    const database = 'SELECT * FROM comments JOIN users ON "comments".users_id = $1 WHERE comments.id = $2;';
-    const PhotographyResults = await pool.query(database, [users_id, id]);
+  static async getSingleComment(id) {
+    const database = 'SELECT comments.id, commentary, photos_id, users_id, name, username, email FROM comments JOIN users ON "comments".users_id = users.id WHERE comments.id = $1;';
+    const PhotographyResults = await pool.query(database, [id]);
     return PhotographyResults.rows[0];
   }
 

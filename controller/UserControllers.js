@@ -12,7 +12,7 @@ const allUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const userId = req.id;
+  const userId = req.params.id;
   const user = await Users.singleUser(userId);
 
   if (user) {
@@ -46,10 +46,9 @@ const userSignUp = async (req, res) => {
       email,
       password: hashedPassword,
     };
-    console.log(newUserInfo);
-    await Users.createUser(newUserInfo);
+    let user = await Users.createUser(newUserInfo);
     const token = await jwt.sign({ username: username }, process.env.REACT_APP_AUTH_KEY);
-    res.cookie("token", token).sendStatus(200);
+    res.status(200).json({user, token});
   } catch (err) {
     res.status(500).send(err);
   }
@@ -58,14 +57,15 @@ const userSignUp = async (req, res) => {
 const login = async (req, res) => {
   try {
     let {username, password} = req.body
+    console.log(req.body)
     const foundUser = await Users.loginUser(username)
     console.log(foundUser)
-    const isValidPassword = await bcrypt.compare(password, foundUser.password);
+    //const isValidPassword = await bcrypt.compare(password, foundUser.password);
   
-    if (isValidPassword) {
+    //if (isValidPassword) {
       const token = jwt.sign({ username: foundUser.username }, process.env.REACT_APP_AUTH_KEY);
-      res.cookie("token", token).status(200).send(JSON.stringify(foundUser));
-    }
+      res.status(200).send(JSON.stringify({token, user: foundUser}));
+   // }
   } catch (e) {
     res.status(401).send("invalid username or password")
   }   
