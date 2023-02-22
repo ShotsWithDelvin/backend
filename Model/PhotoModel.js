@@ -3,7 +3,6 @@ const { pool } = require("../db.js");
 class Photos {
   static async totalPhotos() {
     const database = 'SELECT * FROM photos ORDER BY id;'
-    
     const databaseResults = await pool.query(database);
     return databaseResults.rows; 
   } 
@@ -25,6 +24,12 @@ class Photos {
     return photographyResults.rows
     
   }
+
+  // static async findById(id){
+  //   let query = await pool.query("SELECT * FROM photos WHERE photos_id = $1;", [id])
+  //   return query.rows[0]
+
+  // } 
 }
 
 module.exports = Photos;
