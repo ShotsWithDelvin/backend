@@ -33,7 +33,7 @@ const deleteComment = async (req, res) => {
   const { id } = req
   const comment = await Comments.getSingleComment(req.body.id);
   if(id !== comment.users_id) {
-    res.status(403).send('fuck off')
+    res.status(403).send('False validation')
   } else {
     const deletedComment = await Comments.deleteComment(req.body.id);
     const allComments = await Comments.getAllComments(req.body.photos_id)
