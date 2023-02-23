@@ -13,11 +13,11 @@ class Comments {
     return PhotographyResults.rows[0];
   }
 
-  // static async updateComment(){
-  //   const database = "UPDATE comments SET commentary = $1, photos_id = $2, users_id = $3 WHERE comments.id = $1;"
-  //   const query = await pool.query(database, [id]);
-  //   return query[0]
-  // }
+  static async updateComment(commentary, comment_id){
+    const database = "UPDATE comments SET commentary = $1 WHERE id = $2;"
+    const query = await pool.query(database, [commentary, comment_id]);
+    return query[0]
+  }
 
   static async addComment({commentary, photos_id, users_id}) {
     const query = "INSERT INTO comments (commentary, photos_id, users_id) VALUES ($1, $2, $3) RETURNING *;";
