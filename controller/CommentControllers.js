@@ -29,6 +29,24 @@ const addComment = async (req, res) => {
   }
 };
 
+
+const updateComment = async (req, res) => {
+  const {
+    commentary,
+    comment_id,
+    photos_id
+  } = req.body;
+  const {id} = req
+  const comment = await Comments.getSingleComment(comment_id)
+  if (id !== comment.users_id) {
+    res.status(403).send('False validation')
+  }else{
+    const comments = await Comments.updateComment(commentary, comment_id);
+  const allComments = await Comments.getAllComments(photos_id);
+  res.status(200).send(allComments);
+  }
+}
+
 const deleteComment = async (req, res) => {
   const { id } = req
   const comment = await Comments.getSingleComment(req.body.id);
@@ -43,6 +61,7 @@ const deleteComment = async (req, res) => {
 
 module.exports = {
   allComments,
+  updateComment,
   addComment,
   deleteComment,
 };
