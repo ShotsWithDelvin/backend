@@ -23,7 +23,7 @@ app.use("/users", userRouter);
 app.use("/likes", likesRouter);
 app.use("/photos", photosRouter)
 app.use("/comments", commentsRouter);
-app,get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("hi there girl/boy?");
 })
 app.listen(PORT, () => {
