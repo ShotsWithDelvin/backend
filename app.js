@@ -8,6 +8,7 @@ const likesRouter = require("./Routes/likesRoutes.js")
 const commentsRouter = require("./Routes/commentsRoutes.js");
 
 const cookieParser = require("cookie-parser");
+const { signedCookie } = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -22,7 +23,9 @@ app.use("/users", userRouter);
 app.use("/likes", likesRouter);
 app.use("/photos", photosRouter)
 app.use("/comments", commentsRouter);
-
+app,get("/", (req, res) => {
+  res.send("hi there girl/boy?");
+})
 app.listen(PORT, () => {
   console.log(`disposing listening on port ${PORT}`);
 });
