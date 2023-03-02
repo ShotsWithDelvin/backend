@@ -15,7 +15,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: 'postgresql://postgres:U0xKeXnd7bVP7bNBI7m8@containers-us-west-190.railway.app:6079/railway'
+    connection: 'postgresql://postgres:iJdaPMDW6YuxggTSrDdJ@containers-us-west-132.railway.app:7924/railway'
     ,
     pool: {
       min: 2,
