@@ -23,8 +23,9 @@ app.use("/users", userRouter);
 app.use("/likes", likesRouter);
 app.use("/photos", photosRouter)
 app.use("/comments", commentsRouter);
+
 app.get("/", (req, res) => {
-  res.send("hi there girl/boy?");
+  res.send("hi there girl/boy/or what ever?");
 })
 app.listen(PORT, () => {
   console.log(`disposing listening on port ${PORT}`);
