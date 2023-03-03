@@ -5,9 +5,6 @@ const getAllLikes = async (req, res) => {
   res.status(200).send(likes);
 };
 
-
-
-
 const addLikes = async (req, res) => {
   const {
     photos_id,

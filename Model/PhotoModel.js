@@ -16,9 +16,10 @@ class Photos {
   }
   static async createPhotos(info) {
     const query =
-      "INSERT INTO photos (id, url) VALUES ($1, $2) RETURNING *;";
+      "INSERT INTO photos (id, name, url) VALUES ($1, $2, $3) RETURNING *;";
     const photographyResults = await pool.query(query, [
       info.id,
+      info.name,
       info.url
     ]); 
     return photographyResults.rows
