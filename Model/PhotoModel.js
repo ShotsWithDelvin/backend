@@ -4,7 +4,7 @@ class Photos {
   static async totalPhotos() {
     const database = 'SELECT * FROM photos ORDER BY id;'
     const databaseResults = await pool.query(database);
-    return databaseResults.rows; 
+    return databaseResults.rows;
   } 
 
   static async singlePhoto(id) {
